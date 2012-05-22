@@ -1,33 +1,34 @@
 <head>
-    <!-- style omitted -->
+   <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript">
-        var oldMouse = null;
+        var old = null;
 
-        function tester() {
-            var mouseDragMe = document.getElementById("mouseDragMe");
+        $(document).ready(function() {
 
-            mouseDragMe.onmousemove = handleMouseMove;
-            mouseDragMe.onmousedown = function(ev) {
-                ev = ev || window.event;
-                oldMouse = { x : ev.clientX, y : ev.clientY };
-            }
-            mouseDragMe.onmouseup = function(ev) { oldMouse = null; }
-        }
+            $("#mouseDragMe").bind({
 
-        function handleMouseMove(ev){
-            ev = ev || window.event;
+                mouseup: function(ev) {
+                    old = null;
+                },
 
-            var results = document.getElementById("results");
-            if(oldMouse) {
-                results.innerHTML =
-                    "Old (X: " + oldMouse.x + " Y: " + oldMouse.y + ") " +
-                    "New (X: " + ev.clientX + " Y: " + ev.clientY + ")";
-                oldMouse = { x : ev.clientX, y : ev.clientY };
-            }
-        }
+                mousedown: function(ev) {
+                    old = { x : ev.clientX, y : ev.clientY };
+                },
+
+                mousemove: function(ev) {
+
+                    if(old) {
+                        $("#results").html(
+                                    "Old (X: " + old.x + " Y: " + old.y + ") " +
+                                    "New (X: " + ev.clientX + " Y: " + ev.clientY + ")");
+                        old = { x : ev.clientX, y : ev.clientY };
+                    }
+                }
+            });
+        });
     </script>
 </head>
-<body onload="tester()">
+<body >
     <div id="mouseDragMe"></div>
     <div id="results"/>
 </body>
