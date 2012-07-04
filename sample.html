@@ -1,34 +1,35 @@
 <head>
-   <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript">
         var old = null;
 
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             $("#mouseDragMe").bind({
 
-                mouseup: function(ev) {
+                mouseup:function (ev) {
                     old = null;
                 },
 
-                mousedown: function(ev) {
-                    old = { x : ev.clientX, y : ev.clientY };
+                mousedown:function (ev) {
+                    old = { x:ev.clientX, y:ev.clientY };
                 },
+// this is pretty neat
+                mousemove:function (ev) {
 
-                mousemove: function(ev) {
-
-                    if(old) {
+                    if (old) {
                         $("#results").html(
-                                    "Old (X: " + old.x + " Y: " + old.y + ") " +
-                                    "New (X: " + ev.clientX + " Y: " + ev.clientY + ")");
-                        old = { x : ev.clientX, y : ev.clientY };
+                                "Old (X: " + old.x + " Y: " + old.y + ") " +
+                                        "New (X: " + ev.clientX + " Y: " + ev.clientY + ")");
+                        old = { x:ev.clientX, y:ev.clientY };
                     }
                 }
             });
         });
     </script>
 </head>
-<body >
-    <div id="mouseDragMe"></div>
-    <div id="results"/>
+<body>
+<div id="mouseDragMe"></div>
+<div id="results"/>
 </body>
